@@ -107,7 +107,7 @@ $stmt->close();
                 }
             });
         }
-        loadTable();           
+        loadTable();
 
         function add_item_data() {
             let Item = document.getElementById('searchval').value;
@@ -122,10 +122,30 @@ $stmt->close();
                 },
                 success: function(data) {
                     loadTable();
-                    // ttotal();
                 }
             });
         }
+
+        //delete data ......
+        $(document).on("click", ".delete-btn", function() {
+            let del_id = $(this).data("id");
+            let row = this;
+            $.ajax({
+                url: "delete_data.php",
+                method: "POST",
+                data: {
+                    del_id: del_id
+                },
+                success: function(data) {
+                    if (data == 1) {
+                        $(row).closest("tr").fadeOut();
+                        loadTable();
+                    } 
+                }
+            });
+
+
+        });
     </script>
 </body>
 
